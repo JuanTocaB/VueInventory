@@ -1,6 +1,6 @@
 <h1 align="center"> VueInventory </h1>
 <div align="center">
-  <image src="" align="center">
+  <image src="./resources/Logo.png" align="center" width="300" height="300" />
 </div>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
