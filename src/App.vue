@@ -153,10 +153,10 @@ export default defineComponent({
       error.value = null;
       
       try {
-        const response = await fetch('https://fakestoreapi.com/products');
-        if (!response.ok) throw new Error('Error al cargar los productos');
-        
-        const data = await response.json();
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(apiUrl + '/products');
+        const text = await response.text();
+        const data = JSON.parse(text);
         
         // Añadir propiedades adicionales requeridas (stock y disponible)
         data.forEach((product: Product) => {
