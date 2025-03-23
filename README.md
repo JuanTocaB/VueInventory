@@ -15,7 +15,7 @@ Para más información sobre las respuestas a las preguntas del proyecto, consul
 
 ## Descripción
 
-VueInventory es una aplicación web que permite llevar un control de inventario de productos, con la posibilidad de agregar, editar y eliminar productos. La aplicación cuenta con un sistema de autenticación de usuarios, donde se pueden registrar nuevos usuarios y loguearse con una cuenta existente.
+VueInventory es una aplicación web que realizar compras de productos de una tienda ficticia. La aplicación fue desarrollada con Vue.js y Vite como bundler. La aplicación consume la API de [Fake Store API](https://fakestoreapi.com) para obtener los productos que se muestran en la tienda.
 
 ## Instalación
 
