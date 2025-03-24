@@ -13,11 +13,11 @@ const toasts = reactive<Toast[]>([]);
 export const toastService = {
   toasts,
   
-  success(title: string, message: string, duration = 100000) {
+  success(title: string, message: string, duration = 1000) {
     this.add({ title, message, type: 'success', duration });
   },
   
-  info(title: string, message: string, duration = 100000) {
+  info(title: string, message: string, duration = 1000) {
     this.add({ title, message, type: 'info', duration });
   },
   
