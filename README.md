@@ -26,7 +26,7 @@ El proyecto esta dockerizado, por lo que para correrlo solo es necesario tener i
 3. Cree un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
 
 ```sh
-PORT=8080
+PORT=8090
 HOST=0.0.0.0
 VITE_API_URL=http://localhost:8080/graphql/
 ```
