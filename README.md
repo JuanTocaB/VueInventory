@@ -28,7 +28,7 @@ El proyecto esta dockerizado, por lo que para correrlo solo es necesario tener i
 ```sh
 PORT=8080
 HOST=0.0.0.0
-VITE_API_URL=https://fakestoreapi.com
+VITE_API_URL=http://localhost:8080/graphql/
 ```
 
 4. Ejecute el siguiente comando para construir y correr los contenedores de Docker:
