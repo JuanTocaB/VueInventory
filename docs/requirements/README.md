@@ -1,4 +1,4 @@
-# REQUSITADO
+# REQUISITADO
 
 En este apartado se encuentran los requerimientos necesarios para la ejecución del proyecto.
 

@@ -154,15 +154,32 @@ export default defineComponent({
       
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await fetch(apiUrl + '/products');
-        const text = await response.text();
-        const data = JSON.parse(text);
-        
-        // Añadir propiedades adicionales requeridas (stock y disponible)
-        data.forEach((product: Product) => {
-          product.stock = Math.floor(Math.random() * 20); // Stock aleatorio entre 0 y 19
-          product.disponible = product.stock > 0;
+        const query = `
+          query GetProducts {
+            products {
+              id
+              title
+              price
+              description
+              category
+              image
+              rating {
+                rate
+                count
+              }
+              stock
+              disponible
+            }
+          }
+        `;
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
         });
+
+        const json = await response.json();
+        const data = json.data.products as Product[];
         
         // Vaciar y rellenar el array
         products.splice(0, products.length, ...data);
@@ -297,8 +314,46 @@ export default defineComponent({
     };
 
     // Finalizar proceso de pago
-    const finishCheckout = (): void => {
-      cart.splice(0, cart.length); // Vaciar carrito
+    const finishCheckout = async (): Promise<void> => {
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      // 1) Actualizar stock en el servidor por cada ítem del carrito
+      for (const item of cart) {
+        const body = {
+          query: `
+            mutation UpdateStock($productId: Int!, $change: Int!) {
+              updateStock(productId: $productId, change: $change) {
+                product {
+                  id
+                  title
+                  price
+                  description
+                  category
+                  image
+                  rating { 
+                    rate
+                    count
+                  }
+                  stock
+                  disponible
+                }
+              }
+            }
+          `,
+          variables: {
+            productId: item.id,
+            change: -item.quantity
+          }
+        };
+        await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+      }
+
+      // 2) Limpiar estado local
+      cart.splice(0, cart.length);
       showCheckoutModal.value = false;
       activeView.value = 'products';
       toastService.success('Pedido completado', 'Tu pedido ha sido procesado correctamente');
